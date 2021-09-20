@@ -1,0 +1,19 @@
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 50px;
+    min-height: 31px;
+    &__nav {
+        display: flex;
+        justify-content: flex-end;
+    }
+    &__home {
+        display: flex;
+        justify-content: flex-start;
+        font-size: 28px;
+        font-weight: 700;
+        &_red-text {
+            color: #9F0013;
+        }
+    }
+}

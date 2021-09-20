@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as  Router } from 'react-router-dom';
+import App from './components/app/app';
+import {Provider} from 'react-redux';
+import ErrorBoundry from './components/error-boundry';
+import MarvelService from './service/marvel-service';
+import MarvelServiceContext from './components/marvel-service-context';
+import store from './store';
+
+const marvelService = new MarvelService();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Provider store={store}>
+        <ErrorBoundry>
+            <MarvelServiceContext.Provider value={marvelService}>
+                <Router>
+                    <App/>
+                </Router>
+            </MarvelServiceContext.Provider>
+        </ErrorBoundry>
+    </Provider>
+  ,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
