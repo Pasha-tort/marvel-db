@@ -5,7 +5,7 @@ import Spinner from "../../spinner/spinner";
 class RandomCharacter extends Component {
 
     render() {
-        const {loading, error, dataChar} = this.props;
+        const {loading, dataChar} = this.props;
 
         if (loading) {
             return (

@@ -10,10 +10,15 @@
     &__home {
         display: flex;
         justify-content: flex-start;
-        font-size: 28px;
         font-weight: 700;
         &_red-text {
             color: #9F0013;
         }
+    }
+}
+
+@media (max-width: 991px) {
+    .header {
+        margin-top: 25px;
     }
 }

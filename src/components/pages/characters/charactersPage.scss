@@ -1,0 +1,191 @@
+.random-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 50px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    min-height: 250px;
+    &__thumbnail {
+        width: 100%;
+    }
+    &__dinamic {
+        background: #fff;
+        padding: 35px 35px 35px 40px;
+        display: grid;
+        grid-template-columns: 180px 265px;
+        column-gap: 30px;
+        &_null {
+            background: #fff;
+            padding: 35px 35px 35px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            text-align: center;
+        }
+        &__title {
+            font-size: 22px;
+            font-weight: 700;
+            min-height: 29px;
+        }
+        &__text {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 18px;
+            min-height: 90px;
+        }
+        &__box-btn {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-items: start;
+            column-gap: 30px;
+        }
+    }
+    &__static {
+        position: relative;
+        background: #232222;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+        &__text {
+            color: #fff;
+            margin-left: 40px;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 28px;
+            &_first {
+                margin-top: 35px;
+                // height: 64px;
+            }
+            &_second {
+                margin-top: 33px;
+                // height: 32px;
+            }
+        }
+        &__img {
+            &_mjolnir {
+                top: 47px;
+                left: 397px;
+                position: absolute;
+            }
+            &_shield {
+                top: 136px;
+                left: 383px;
+                position: absolute;
+            }
+        }
+    }
+    
+}
+
+@media (max-width: 1160px) {
+    .random-box {
+        &__static {
+            &__img {
+                &_mjolnir {
+                    width: 150px;
+                    left: 350px;
+                    top: 90px;
+                }
+                &_shield {
+                    width: 80px;
+                    top: 150px;
+                    left: 335px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .random-box {
+        margin-top: 25px;
+        &__dinamic_null {
+            font-size: 18px;
+        }
+        &__dinamic {
+            padding: 15px;
+            grid-template-columns: 109px 221px;
+            column-gap: 10px;
+            &__text {
+                height: 90px;
+                overflow-y: auto;
+                overflow-x: none;
+            }
+            &__title {
+                font-size: 18px;
+            }
+            &__box-btn {
+                column-gap: 15px;
+                margin-top: 20px;
+            }
+        }
+        &__static {
+            &__text {
+                font-size: 18px;
+            }
+            &__img {
+                &_mjolnir {
+                    width: 120px;
+                    left: 265px;
+                    top: 110px;
+                }
+                &_shield {
+                    width: 65px;
+                    top: 170px;
+                    left: 260px;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 767px) {
+    .random-box {
+        min-height: 150px;
+        &__dinamic {
+            grid-template-columns: 90px 140px;
+            &__title {
+                font-size: 16px;
+            }
+            &__text {
+                height: 60px;
+            }
+            &__box-btn {
+                column-gap: 5px;
+            }
+        }
+        &__static {
+            padding: 5px;
+            &__text {
+                font-size: 16px;
+                &_first {
+                    margin-top: 10px;
+                }
+                &_second {
+                    margin-top: 10px;
+                }
+            }
+            &__img {
+                &_mjolnir {
+                    display: none;
+                }
+                &_shield {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .random-box {
+        margin-top: 10px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        &__dinamic {
+            &__box-btn {
+                margin-top: 0;
+            }
+        }
+    }
+}

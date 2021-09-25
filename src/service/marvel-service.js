@@ -33,7 +33,18 @@ export default class MarvelService {
     }
 
     getComics = async(id) => {
-        return await this.getResurse(`/comics/${id}?`);
+        const res = await this.getResurse(`/comics/${id}?`);
+        return await this._transformComics(res);
+    }
+
+    getCreator = async(id) => {
+        const res = await this.getResurse(`/creators/${id}?`);
+        return await res;
+    }
+
+    getCreatorsAll = async(url) => {
+        const res = await this.getResurse(url);
+        return await this._transformCreatorsAll(res);
     }
 
     getSeriesAll = async(url) => {
@@ -56,8 +67,27 @@ export default class MarvelService {
         }
     }
 
-    _transformComicsAll = (data) => {
-        return data.data.results;
+    _transformComics = (dataComics) => {
+        if (dataComics.data.results[0].description === null) {
+            dataComics.data.results[0].description = 'Data unknow :-(';
+        }
+        return dataComics.data.results[0];
+    }
+
+    _transformComicsAll = (result) => {
+        const total = result.data.total
+        return {
+            list: result.data.results,
+            total: total,
+        }
+    }
+
+    _transformCreatorsAll = (result) => {
+        const total = result.data.total
+        return  {
+            list: result.data.results,
+            total: total,
+        }
     }
 
     _transformSeriesAll = (data) => {

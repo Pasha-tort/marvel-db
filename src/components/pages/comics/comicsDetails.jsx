@@ -4,8 +4,7 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import Spinner from "../../spinner/spinner";
 
-const CharDetails = ({dataChar, loading, history}) => {
-
+const ComicsDetails = ({dataComics, loading, history}) => {
     if (loading) {
         return (
             <div>
@@ -16,45 +15,45 @@ const CharDetails = ({dataChar, loading, history}) => {
         )
     }
 
-    if (dataChar.length === 0) {
+    if (dataComics.length === 0) {
         return (
             
             <div className="details-box details-box_null">
-                The selected character will be displayed here
+                The selected comics will be displayed here
             </div>
             
         )
     }
-    
-    const {name, description, thumbnail, comics, urls, id} = dataChar;
+
+    const {title, description, thumbnail, characters, urls, id} = dataComics;
     let urlWiki = null;
     urls.forEach(item => {
-        if (item.type === 'wiki') {
+        if (item.type === 'detail') {
             urlWiki = item.url
         }
     })
     const {path} = thumbnail;
-    const urlImg = `${path}/standard_amazing.jpg`;
+    const urlImg = `${path}/portrait_uncanny.jpg`;
     
     return (
         
             <div className="details-box">
                 <div className="details-box__header">
-                    <img src={urlImg} alt={name} className="details-box__img"/>
+                    <img src={urlImg} alt={title} className="details-box__img"/>
                     <div className="details-box__title">
-                        <span className="details-box__name">{name}</span>
-                        <Link to={`/characters/${id}`} onClick={() => document.querySelector('body').style.overflow = 'visible'}    className="btn details-box__btn">HOMEPAGE</Link>
+                        <span className="details-box__name">{title}</span>
+                        <Link to={`/comics/${id}`} onClick={() => document.querySelector('body').style.overflow = 'visible'} className="btn details-box__btn">HOMEPAGE</Link>
                         <a href={urlWiki} target="_blank" rel = "noreferrer" className="btn btn_grey details-box__btn details-box__btn-grey">WIKI</a>
                     </div>
                 </div>
                 <div className="details-box__description">
                     {description}
                 </div>
-                <span className="details-box__comics_title">Comics:</span>
+                <span className="details-box__comics_title">Characters:</span>
                 <ul className="details-box__comics">
-                    {
-                        comics.items.length === 0 ? 'No comics data' :
-                        comics.items.map((item, i) => {
+                    {   
+                        characters.items.length === 0 ? 'No characters data' : 
+                        characters.items.map((item, i) => {
                             if (i > 9) {
                                 return null;
                             }
@@ -64,8 +63,8 @@ const CharDetails = ({dataChar, loading, history}) => {
                             const id = num.join('');
                             return (
                                 <li onClick={() => {
-                                    history.push(`/comics/${id}`);
-                                    document.querySelector('body').style.overflow = 'visible';
+                                    history.push(`/characters/${id}`)
+                                    document.querySelector('body').style.overflow = 'visible';    
                                 }} key={id} className="details-box__comics__item">
                                     {item.name}
                                 </li>
@@ -74,21 +73,18 @@ const CharDetails = ({dataChar, loading, history}) => {
                     }
                 </ul>
             </div>     
-        
+
     )
 
 }
 
-const mapStateToProps = ({charDetails}) => {
+const mapStateToProps = ({comicsDetails}) => {
     return {
-        dataChar: charDetails.dataChar,
-        loading: charDetails.loading,
-        error: charDetails.error,
+        dataComics: comicsDetails.dataComics,
+        loading: comicsDetails.loading,
+        error: comicsDetails.error,
     }
 }
 
-const mapDispatchToProps = {
-    
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CharDetails));
+export default connect(mapStateToProps)(withRouter(ComicsDetails));

@@ -6,7 +6,6 @@ const charFullLoaded = (charFull) => {
 }
 
 const charFullComicsLoaded = (comics) => {
-    console.log(comics)
     return {
         type: 'CHAR_FULL_COMICS_LOADED',
         payload: comics,
@@ -14,7 +13,6 @@ const charFullComicsLoaded = (comics) => {
 }
 
 const charFullSeriesLoaded = (series) => {
-    console.log(series)
     return {
         type: 'CHAR_FULL_SERIES_LOADED',
         payload: series,

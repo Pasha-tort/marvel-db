@@ -1,10 +1,10 @@
 import React from "react";
 import AppHeader from "../app-header";
 import { Route, Switch, Redirect} from 'react-router';
-import HomePage from '../pages/homePage';
+import ComicsFull from "../pages/comics/comicsFull";
 import CharactersPage from '../pages/characters/charactersPage';
-import CharDetailsFull from "../pages/characters/charDetailsFull";
-import ComicsPage from '../pages/comicsPage';
+import CharDetailsFull from "../pages/characters/charFull";
+import ComicsPage from '../pages/comics/comicsPage';
 
 function App() {
     
@@ -12,15 +12,17 @@ function App() {
     <div className="app app_container">
         <AppHeader/>
         <Switch>
-            <Route path='/' exact component={HomePage}/>
-            
+            <Redirect from="/" exact to="/characters/"/>
             <Route path='/characters/' exact component={CharactersPage}/>
-            {/* <Redirect from="/" to='/characters/'/> */}
             <Route path="/characters/:id" render={({match}) => {
                 const {id} = match.params;
                 return <CharDetailsFull id={id}/>
             }}/>
-            <Route path='/comics/' component={ComicsPage}/>
+            <Route path='/comics/' exact component={ComicsPage}/>
+            <Route path="/comics/:id" render={({match}) => {
+                const {id} = match.params;
+                return <ComicsFull id={id}/>
+            }}/>
         </Switch>
     </div>
   );

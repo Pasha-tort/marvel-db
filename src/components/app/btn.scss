@@ -44,10 +44,6 @@
 
     &_grey {
         background: #5C5C5C;
-        // text-decoration: none;
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;
         &:hover {
             background: #353535;
             &::after {
@@ -84,3 +80,109 @@
     }
 }
 
+@media (max-width: 991px) {
+    .btn {
+        &:after {
+            border-top: 10px solid #fff;
+            border-right: 10px solid #9F0013;
+        }
+        &:before {
+            border-bottom: 10px solid #fff;
+            border-left: 10px solid #9F0013;
+        }
+        &:hover {
+            background: #9F0013;
+            &:after {
+                border-right: #9F0013;
+            }
+            &:before {
+                border-left: #9F0013;
+            }
+        }
+        &:active {
+            transition: 0.2s all;
+            background: #7D0C07;
+            &:after {
+                transition: 0.2s all;
+                border-right: 10px solid #7D0C07;
+            }
+            &:before {
+                transition: 0.2s all;
+                border-left: 10px solid #7D0C07;
+            }
+        }
+        &_grey {
+            &:after {
+                border-top: 10px solid #fff;
+                border-right: 10px solid #5C5C5C;
+            }
+            &:before {
+                border-bottom: 10px solid #fff;
+                border-left: 10px solid #5C5C5C;
+            }
+            &:hover {
+                transition: none;
+                background: #5C5C5C;
+                &:after {
+                    transition: none;
+                    border-right: #5C5C5C;
+                }
+                &:before {
+                    transition: none;
+                    border-left: #5C5C5C;
+                }
+            }
+            &:active {
+                transition: 0.2s all;
+                background: #353535;
+                &:after {
+                    transition: 0.2s all;
+                    border-right: 10px solid #353535;
+                }
+                &:before {
+                    transition: 0.2s all;
+                    border-left: 10px solid #353535;
+                }
+            }
+        }
+        &_random-box-static {
+            &:after {
+                border-top: 10px solid #232222;
+            }
+            &:before {
+                border-bottom: 10px solid #232222;
+            }
+        }
+    }
+}
+
+@media(max-width: 767px) {
+    .btn {
+        &_random-box-dinamic {
+            width: 65px;
+            height: 30px;
+            font-size: 12px;
+        }
+        &_random-box-static {
+            width: 65px;
+            height: 30px;
+            font-size: 12px;
+        }
+    }
+}
+
+@media(max-width: 575px) {
+    .btn {
+        &_random-box-dinamic {
+            width: 65px;
+            height: 30px;
+            font-size: 12px;
+            margin-top: 0;
+        }
+        &_random-box-static {
+            width: 65px;
+            height: 30px;
+            font-size: 12px;
+        }
+    }
+}

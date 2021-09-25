@@ -9,3 +9,28 @@
     width: 1110px;
     margin: 0 auto;
 }
+
+@media (max-width: 1160px) {
+    .app_container {
+        width: 950px;
+    }
+}
+
+@media (max-width: 991px) {
+    .app_container {
+        width: 740px;
+    }
+}
+
+@media (max-width: 767px) {
+    .app_container {
+        width: 540px;
+    }
+}
+
+@media (max-width: 575px) {
+    .app_container {
+        width: 300px;
+        position: relative;
+    }
+}

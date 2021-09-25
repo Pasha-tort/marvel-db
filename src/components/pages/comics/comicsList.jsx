@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {listLoaded, listRequested, listError, onClickItemPage, onClickFilterPages, onClickFilterPosition} from '../../../actions/actionsCharactersList';
-import {charLoaded, charError, charRequested} from '../../../actions/actionsCharDetails';
+import { withRouter } from 'react-router';
+import { listComicsLoaded, listComicsRequested, listComicsError, onClickItemPage, onClickFilterPages, onClickFilterPosition,} from '../../../actions/actionsComicsList';
+import {comicsDetailsError, comicsDetailsLoaded, comicsDetailsRequested} from '../../../actions/actionsComicsDetails';
 
 import WithMarvelService from '../../hoc';
 
 import Filters from '../../filters/filters';
-import ItemCharactersList from './itemCharactersList';
+import ItemComicsList from './itemComicsList';
 import Spinner from '../../spinner/spinner';
 
-class CharactersList extends Component {
+class ComicsList extends Component {
 
     render() {
         const {itemsList,
             loading,
-            onClickChar,
             total, 
             page, 
             filterPages, 
@@ -22,6 +22,7 @@ class CharactersList extends Component {
             onClickItemPage, 
             onClickFilterPages,
             onClickFilterPosition,
+            onClickComics,
         } = this.props;
 
         const filtersProps = {
@@ -31,15 +32,13 @@ class CharactersList extends Component {
         return(
             <div className="list-items-box__wrapper">
                 <Filters filtersProps={filtersProps}/>
-               <ItemsList itemsList={itemsList} filterPosition={filterPosition} loading={loading} onClickChar={onClickChar}/>
+                <ItemsComicsList onClickComics={onClickComics} itemsList={itemsList} filterPosition={filterPosition} loading={loading}/>
             </div>
         )
     }
-    
 }
 
-const ItemsList = ({itemsList, onClickChar, loading, filterPosition}) => {
-
+const ItemsComicsList = ({itemsList, loading, filterPosition, onClickComics}) => {
     if (loading) {
         return(
             <div className="list-items-box__spinner">
@@ -53,7 +52,7 @@ const ItemsList = ({itemsList, onClickChar, loading, filterPosition}) => {
         return null
     }
 
-    let styledClass = "list-items-box__items"
+    let styledClass = "list-items-box__items ";
 
     if (document.documentElement.clientWidth < 768 && filterPosition === 'three-columns') {
         filterPosition = "two-columns";
@@ -71,11 +70,11 @@ const ItemsList = ({itemsList, onClickChar, loading, filterPosition}) => {
         <ul className={styledClass}>
             {
                 itemsList.map((item, i) => {
-                    const {name, thumbnail, id} = item;
+                    const {title, thumbnail, id} = item;
                     const {path} = thumbnail;
-                    const urlImg = `${path}/standard_xlarge.jpg`;
+                    const urlImg = `${path}/portrait_uncanny.jpg`;
                     return (
-                        <ItemCharactersList onClickChar={onClickChar} id={id} key={id} name={name} urlImg={urlImg}/>
+                        <ItemComicsList onClickComics={onClickComics} id={id} key={id} title={title} urlImg={urlImg}/>
                     )
                 })
             }
@@ -83,7 +82,7 @@ const ItemsList = ({itemsList, onClickChar, loading, filterPosition}) => {
     )
 }
 
-const WithCharactersList = (Component) => {
+const WithComicsList = (Component) => {
     return class extends Component {
 
         urlCreate = (page, filterPages) => {
@@ -92,72 +91,72 @@ const WithCharactersList = (Component) => {
             return `limit=${limit}&offset=${offfset}`
         }
 
-        onClickChar = (id) => {
+        onClickComics = (id) => {
             if (document.documentElement.clientWidth < 576) {
                 const detailsBox = document.querySelector('.details-box__absolute');
                 detailsBox.classList.add('details-box__absolute_active');
                 detailsBox.style.top = `${document.documentElement.scrollTop - 50}px`
                 document.querySelector('body').style.overflow = 'hidden';
             }
-            const {MarvelService, charLoaded, charRequested, charError} = this.props;
-            charRequested();
-            MarvelService.getCharacter(id)
-                .then((res) => charLoaded(res))
-                .catch(() => charError());
+            const {MarvelService, comicsDetailsLoaded, comicsDetailsRequested, comicsDetailsError} = this.props;
+            comicsDetailsRequested();
+            MarvelService.getComics(id)
+                .then((res) => comicsDetailsLoaded(res))
+                .catch(() => comicsDetailsError());
         }
 
         componentDidMount() {
-            const {MarvelService, listRequested, listLoaded, listError, page, filterPages, itemsList} = this.props;
+            const {MarvelService, listComicsRequested, listComicsLoaded, listComicsError, page, filterPages, itemsList} = this.props;
             if (itemsList.length !== 0) {
                 return null;
             }
-            listRequested();
-            MarvelService.getCharactersAll(`/characters?${this.urlCreate(page, filterPages)}&`)
-                .then((res) => listLoaded(res))
-                .catch(() => listError());
+            listComicsRequested();
+            MarvelService.getComicsAll(`/comics?${this.urlCreate(page, filterPages)}&`)
+                .then((res) => listComicsLoaded(res))
+                .catch(() => listComicsError());
         }
 
         componentDidUpdate(prevProps) {
             if (prevProps.page !== this.props.page || prevProps.filterPages !== this.props.filterPages) {
-                const {MarvelService, listRequested, listLoaded, listError, page, filterPages} = this.props;
-                listRequested();
-                MarvelService.getCharactersAll(`/characters?${this.urlCreate(page, filterPages)}&`)
-                    .then((res) => listLoaded(res))
-                    .catch(() => listError());
+                const {MarvelService, listComicsRequested, listComicsLoaded, listComicsError, page, filterPages} = this.props;
+                listComicsRequested();
+                MarvelService.getComicsAll(`/comics?${this.urlCreate(page, filterPages)}&`)
+                    .then((res) => listComicsLoaded(res))
+                    .catch(() => listComicsError());
             }
         }
 
         render() {
             const {MarvelService, listRequested, listLoaded, listError, ...props} = this.props;
             return (
-                <Component {...props} onClickChar={this.onClickChar}/>
+                <Component {...props} onClickComics={this.onClickComics}/>
             )
         }
     }
 }
 
-const mapStateToProps = ({charactersList}) => {
+const mapStateToProps = ({comicsList}) => {
     return {
-        itemsList: charactersList.itemsList,
-        total: charactersList.total,
-        filterPosition: charactersList.filterPosition,
-        filterPages: charactersList.filterPages,
-        page: charactersList.page,
-        loading: charactersList.loading,
-        error: charactersList.error,
+        itemsList: comicsList.itemsList,
+        total: comicsList.total,
+        filterPosition: comicsList.filterPosition,
+        filterPages: comicsList.filterPages,
+        page: comicsList.page,
+        loading: comicsList.loading,
+        error: comicsList.error,
     }
 }
 
 const mapDispatchToProps = {
-    listLoaded,
-    listRequested,
-    listError,
+    listComicsLoaded,
+    listComicsRequested,
+    listComicsError,
     onClickItemPage,
     onClickFilterPages,
     onClickFilterPosition,
-    charLoaded,
-    charRequested,
-    charError,
+    comicsDetailsError, 
+    comicsDetailsLoaded, 
+    comicsDetailsRequested,
 }
 
-export default WithMarvelService()(connect(mapStateToProps, mapDispatchToProps)(WithCharactersList(CharactersList)));
+export default WithMarvelService()(connect(mapStateToProps, mapDispatchToProps)(withRouter(WithComicsList(ComicsList))));
