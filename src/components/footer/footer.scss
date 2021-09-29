@@ -1,0 +1,35 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    &__ref {
+        padding: 5px;
+        width: auto;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        color: #000;
+        text-decoration: none;
+        transition: .2s all;
+        &:hover {
+            background: rgba($color: red, $alpha: .7);
+        }
+    }
+    &__img {
+        width: 100px;
+        height: 40px;
+    }
+}
+
+@media(max-width: 991px) {
+    .footer {
+        &__ref {
+            &:hover {
+                background: none;
+            }
+            &:active {
+                background: rgba($color: red, $alpha: .7);
+            }
+        }
+    }
+}

@@ -2,6 +2,42 @@ import React from "react";
 import nextBtn from '../../icons/next2.svg';
 import prevBtn from '../../icons/previous2.svg';
 
+
+const layoutResolutionMobile = (onClickFilterPosition) => {
+    return (
+        <div className="filters__filter-position">
+            <div onClick={() => onClickFilterPosition('two-columns')} className="filters__filter-position__two-columns">
+                <div></div>
+                <div></div>
+            </div>
+
+            <div onClick={() => onClickFilterPosition('one-columns')} className="filters__filter-position__one-columns">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    )
+}
+
+const layoutResolutionDesktop = (onClickFilterPosition) => {
+    return (
+        <div className="filters__filter-position">
+            <div onClick={() => onClickFilterPosition('three-columns')} className="filters__filter-position__three-columns">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div onClick={() => onClickFilterPosition('two-columns')} className="filters__filter-position__two-columns">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    )
+}
+
+
 const Filters = ({filtersProps: {total, 
                                 page, 
                                 filterPages, 
@@ -38,7 +74,10 @@ const Filters = ({filtersProps: {total,
                 styledClass = ' filters__filter-pages__item filters__filter-pages__item_active';
             }
             return (
-               <li key={item} className={styledClass} onClick={() => onClickFilterPages(item)}>{item}</li> 
+               <li key={item} className={styledClass} onClick={() => {
+                    onClickFilterPages(item);
+                    document.querySelector('.filters__filter-pages__items').classList.toggle('filters__filter-pages_drop-down-list')
+                }}>{item}</li> 
             )
         });
     }
@@ -74,7 +113,6 @@ const Filters = ({filtersProps: {total,
 
     const onClickShowBy = () => {
         const listFilterPages = document.querySelector('.filters__filter-pages__items');
-        console.log(listFilterPages)
         listFilterPages.classList.toggle('filters__filter-pages_drop-down-list')
 
     }
@@ -82,33 +120,9 @@ const Filters = ({filtersProps: {total,
     let filterPositionBox = null;
 
     if (document.documentElement.offsetWidth >= 768) {
-        filterPositionBox = 
-                        <div className="filters__filter-position">
-                            <div onClick={() => onClickFilterPosition('three-columns')} className="filters__filter-position__three-columns">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-
-                            <div onClick={() => onClickFilterPosition('two-columns')} className="filters__filter-position__two-columns">
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>;
+        filterPositionBox = layoutResolutionDesktop(onClickFilterPosition);
     } else if (document.documentElement.offsetWidth < 768) {
-        filterPositionBox = 
-                        <div className="filters__filter-position">
-                            <div onClick={() => onClickFilterPosition('two-columns')} className="filters__filter-position__two-columns">
-                                <div></div>
-                                <div></div>
-                            </div>
-
-                            <div onClick={() => onClickFilterPosition('one-columns')} className="filters__filter-position__one-columns">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>;
+        filterPositionBox = layoutResolutionMobile(onClickFilterPosition);
     }
 
 
@@ -140,6 +154,5 @@ const Filters = ({filtersProps: {total,
         </div>
     )
 }
-
 
 export default Filters;
