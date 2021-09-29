@@ -1,13 +1,15 @@
 import React from "react";
-import AppHeader from "../app-header";
 import { Route, Switch, Redirect} from 'react-router';
+
+import AppHeader from "../app-header";
 import ComicsFull from "../pages/comics/comicsFull";
 import CharactersPage from '../pages/characters/charactersPage';
 import CharDetailsFull from "../pages/characters/charFull";
 import ComicsPage from '../pages/comics/comicsPage';
+import Footer from "../footer/footer";
 
 function App() {
-    
+
   return (
     <div className="app app_container">
         <AppHeader/>
@@ -23,7 +25,9 @@ function App() {
                 const {id} = match.params;
                 return <ComicsFull id={id}/>
             }}/>
+            <Redirect to="/"/>
         </Switch>
+        <Footer/>
     </div>
   );
 }

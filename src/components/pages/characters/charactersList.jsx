@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+
 import {listLoaded, listRequested, listError, onClickItemPage, onClickFilterPages, onClickFilterPosition} from '../../../actions/actionsCharactersList';
 import {charLoaded, charError, charRequested} from '../../../actions/actionsCharDetails';
-
 import WithMarvelService from '../../hoc';
 
 import Filters from '../../filters/filters';
@@ -93,12 +93,6 @@ const WithCharactersList = (Component) => {
         }
 
         onClickChar = (id) => {
-            if (document.documentElement.clientWidth < 576) {
-                const detailsBox = document.querySelector('.details-box__absolute');
-                detailsBox.classList.add('details-box__absolute_active');
-                detailsBox.style.top = `${document.documentElement.scrollTop - 50}px`
-                document.querySelector('body').style.overflow = 'hidden';
-            }
             const {MarvelService, charLoaded, charRequested, charError} = this.props;
             charRequested();
             MarvelService.getCharacter(id)
