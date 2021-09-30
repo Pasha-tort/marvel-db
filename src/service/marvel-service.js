@@ -1,7 +1,7 @@
 export default class MarvelService {
 
     constructor() {
-        this._apiBase = 'http://gateway.marvel.com/v1/public';
+        this._apiBase = 'https://gateway.marvel.com/v1/public';
         this._ts = 'ts=kergnjtojtnwo';
         this._publicKey = 'apikey=6fb7e819516b8ecfd3f6909059abd1d4';
         this._hash = 'hash=459cd7c41add172a844babb771612be9';
