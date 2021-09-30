@@ -59,8 +59,11 @@ const ComicsDetails = ({dataComics, loading, history}) => {
 const DataLayout = ({urlImg, urlWiki, title, id, description, characters, history}) => {
 
     const onClickBtn = () => {
-        document.body.style.overflow = 'auto';
-        document.body.removeChild(document.querySelector('.details-box__modal_active'));
+        if (document.querySelector('.details-box__modal_active')) {
+            document.body.style.overflow = 'auto';
+            document.body.removeChild(document.querySelector('.details-box__modal_active'));
+        }
+        
     }
 
     return (

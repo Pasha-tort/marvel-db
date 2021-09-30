@@ -57,8 +57,10 @@ const CharDetails = ({dataChar, loading, history}) => {
 const DataLayout = ({urlImg, urlWiki, name, id, description,comics, history}) => {
 
     const onClickBtn = () => {
-        document.body.style.overflow = 'auto';
-        document.body.removeChild(document.querySelector('.details-box__modal_active'));
+        if (document.querySelector('.details-box__modal_active')) {
+            document.body.style.overflow = 'auto';
+            document.body.removeChild(document.querySelector('.details-box__modal_active'));
+        } 
     }
 
     return (
