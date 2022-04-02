@@ -2,8 +2,10 @@ import React, {Component} from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import WithMarvelService from "../../hoc";
+
 import SpinnerBig from "../../spinner/spinnerBig";
 import Spinner from "../../spinner/spinner";
+
 import {comicsFullLoaded, 
         comicsFullRequested, 
         comicsFullError, 
@@ -65,6 +67,9 @@ class ComicsFull extends Component {
         const year = date.getFullYear();
         const mounth = date.getMonth() + 1;
         const day = date.getDate();
+
+
+
         return (
             <div className="full">
                 <img src={createUrlImg()} alt={name} className="full__img"/>
@@ -114,6 +119,8 @@ class ComicsFull extends Component {
         )
     }
 }
+
+
 
 const mapStateToProps = ({comicsFull}) => {
     return {

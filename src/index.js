@@ -10,6 +10,7 @@ import store from './store';
 
 const marvelService = new MarvelService();
 
+
 ReactDOM.render(
     <Provider store={store}>
         <ErrorBoundry>

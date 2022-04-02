@@ -74,25 +74,25 @@ const VerticalLine = styled.div`
 
 
 const AppHeader = () => {
-    return(
-        <div className="header">
-            <div className="header__home">
-                <LinkHeader as={Link} to="/" className="header__home">
-                    <span className="header__home_red-text">Marvel&nbsp;</span>information portal
-                </LinkHeader>
-            </div>
-            <div className="header__nav">
-                <LinkHeader as={Link} to='/characters/'>
-                    Characters 
-                </LinkHeader>
-                <VerticalLine>/</VerticalLine>
-                <LinkHeader as={Link} to="/comics/">
-                    Comics
-                </LinkHeader>
-            </div>
-            
-        </div>
-    )
+	return (
+		<div className="header">
+			<div className="header__home">
+				<LinkHeader as={Link} to="/" className="header__home">
+					<span className="header__home_red-text">Marvel&nbsp;</span>information portal
+				</LinkHeader>
+			</div>
+			<div className="header__nav">
+				<LinkHeader as={Link} to='/characters/'>
+					Characters
+				</LinkHeader>
+				<VerticalLine>/</VerticalLine>
+				<LinkHeader as={Link} to="/comics/">
+					Comics
+				</LinkHeader>
+			</div>
+
+		</div>
+	)
 }
 
 export default AppHeader;

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {listLoaded, listRequested, listError, onClickItemPage, onClickFilterPages, onClickFilterPosition} from '../../../actions/actionsCharactersList';
 import {charLoaded, charError, charRequested} from '../../../actions/actionsCharDetails';
@@ -81,6 +82,13 @@ const ItemsList = ({itemsList, onClickChar, loading, filterPosition}) => {
             }
         </ul>
     )
+}
+
+ItemsList.propTypes = {
+    loading : PropTypes.bool,
+    filterPosition : PropTypes.string,
+    onClickChar : PropTypes.func,
+    itemsList : PropTypes.array,
 }
 
 const WithCharactersList = (Component) => {
